@@ -3,12 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>hello</artifactId>
+    <groupId>com.spittr</groupId>
+    <artifactId>spittr-af</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Hello Spring Function on Azure</name>
+    <name>Spittr - Azure Functions</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -27,13 +27,13 @@
         <spring.cloud.function.dependencies>4.0.0</spring.cloud.function.dependencies>
 
         <!-- customize those five properties. The functionAppName should be unique across Azure -->
-        <functionResourceGroup>my-spring-function-resource-group</functionResourceGroup>
-        <functionAppServicePlanName>my-spring-function-service-plan</functionAppServicePlanName>
-        <functionAppName>my-spring-function</functionAppName>
+        <functionResourceGroup>spittr-backend-af-group</functionResourceGroup>
+        <functionAppServicePlanName>spittr-backend-af-plan</functionAppServicePlanName>
+        <functionAppName>spittr-backend-af</functionAppName>
         <functionAppRegion>westeurope</functionAppRegion>
         <functionPricingTier>Y1</functionPricingTier>
 
-        <start-class>com.example.DemoApplication</start-class>
+        <start-class>com.spittr.SpittrApplication</start-class>
     </properties>
 
     <dependencies>
@@ -111,7 +111,7 @@
                     <version>4.1.5</version>
                     <configuration>
                         <includes>
-                            <include>com.example.loadtest.*</include>
+                            <include>com.spittr.loadtest.*</include>
                         </includes>
                     </configuration>
                 </plugin>
