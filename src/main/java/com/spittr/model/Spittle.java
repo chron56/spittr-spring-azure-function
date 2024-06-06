@@ -1,25 +1,34 @@
 package com.spittr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name="spittle")
 public class Spittle {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     // Variable to store the message/description of the Spittle (post)
     private String message;
 
     // Variable to store the time that the Spittle was created
+    @Column(name="time_submitted", columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
     private Timestamp timeSubmitted;
 
-
+    @ManyToOne
+    @JoinColumn(name = "spitter_id", insertable = false, updatable = false)
+    @JsonIgnore
     private Spitter spitter;
 
-
+    @Column(name = "spitter_id")
     private int spitterId;
 
-    public Spittle() {
-    }
+    public Spittle(){}
 
     public Spittle(int id, String message, Timestamp timeSubmitted, Spitter spitter) {
         this.id = id;
@@ -61,7 +70,7 @@ public class Spittle {
         this.spitter = spitter;
     }
 
-
+    @JsonProperty("spitter_id")
     public int getSpitterId() {
         return spitterId;
     }
