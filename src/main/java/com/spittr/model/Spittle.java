@@ -1,41 +1,32 @@
 package com.spittr.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import java.sql.Timestamp;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name="spittle")
+@Table(name="SPITTLES_TABLE")
 public class Spittle {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    // Variable to store the message/description of the Spittle (post)
     private String message;
 
-    // Variable to store the time that the Spittle was created
-    @Column(name="time_submitted", columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
-    private Timestamp timeSubmitted;
+    @Column(name="time_submitted")
+    private LocalDateTime timeSubmitted;
 
-    @ManyToOne
-    @JoinColumn(name = "spitter_id", insertable = false, updatable = false)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "spitter.id")
     private Spitter spitter;
-
-    @Column(name = "spitter_id")
-    private int spitterId;
 
     public Spittle(){}
 
-    public Spittle(int id, String message, Timestamp timeSubmitted, Spitter spitter) {
+    public Spittle(int id, String message, LocalDateTime timeSubmitted, Spitter spitter) {
         this.id = id;
         this.message = message;
         this.timeSubmitted = timeSubmitted;
         this.spitter = spitter;
-        this.spitterId = spitter != null ? spitter.getId() : null;
     }
 
     public int getId() {
@@ -54,11 +45,11 @@ public class Spittle {
         this.message = message;
     }
 
-    public Timestamp getTimeSubmitted() {
+    public LocalDateTime getTimeSubmitted() {
         return timeSubmitted;
     }
 
-    public void setTimeSubmitted(Timestamp timeSubmitted) {
+    public void setTimeSubmitted(LocalDateTime timeSubmitted) {
         this.timeSubmitted = timeSubmitted;
     }
 
@@ -70,15 +61,6 @@ public class Spittle {
         this.spitter = spitter;
     }
 
-    @JsonProperty("spitter_id")
-    public int getSpitterId() {
-        return spitterId;
-    }
-
-    public void setSpitterId(int spitterId) {
-        this.spitterId = spitterId;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Spittle{");
@@ -86,7 +68,6 @@ public class Spittle {
         sb.append(", message='").append(message).append('\'');
         sb.append(", timeSubmitted=").append(timeSubmitted);
         sb.append(", spitter=").append(spitter);
-        sb.append(", spitterId=").append(spitterId);
         sb.append('}');
         return sb.toString();
     }

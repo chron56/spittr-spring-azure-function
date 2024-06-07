@@ -1,31 +1,24 @@
 package com.spittr.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
-@Table(name="spitter")
+@Table(name = "SPITTERS_TABLE")
 public class Spitter {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    // Variable to store the username of the Spitter
     private String username;
 
-    // Variable to store the password of the Spitter
     private String password;
 
-    // Variable to store the fullname of the Spitter
     @Column(name = "full_name")
     private String fullName;
 
-    @OneToMany(mappedBy = "spitter", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JsonIgnore
+    @OneToMany(mappedBy = "spitter", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Spittle> spittles;
 
     public Spitter() {}

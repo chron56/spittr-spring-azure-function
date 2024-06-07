@@ -11,20 +11,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SpittrServiceImpl implements SpittrService{
+public class SpittrServiceImpl implements SpittrService {
 
     @Autowired
-    private SpitterRepository spitterRepository;
+    SpitterRepository spitterRepository;
 
     @Autowired
-    private SpittleRepository spittleRepository;
+    SpittleRepository spittleRepository;
 
     public List<Spitter> getAllSpitters() {
         return spitterRepository.findAll();
     }
 
     public Spitter getSpitterById(int id) {
-        return spitterRepository.findById(id);
+        return spitterRepository.getOne(id);
     }
 
     public void saveSpitter(Spitter spitter) {
@@ -35,7 +35,7 @@ public class SpittrServiceImpl implements SpittrService{
         spitterRepository.deleteById(id);
     }
 
-    public List<Spittle> getAllSpittles(){
+    public List<Spittle> getAllSpittles() {
         return spittleRepository.findAll();
     }
 
